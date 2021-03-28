@@ -1,27 +1,32 @@
 import React, { Component }from 'react';
 import { NavItem } from 'react-bootstrap';
-
+import './welcome.css';
 
 class Welcome extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            allHerois: []
+            allHerois: [],
+            searchText:'',
+            begin:1,
             
         }
         this.listAllHeroes = this.listAllHeroes.bind(this);
+        this.searchSuperHeroes = this.searchSuperHeroes.bind(this);
     }
 
     componentDidMount(){
+        if(this.state.begin){
         this.listAllHeroes();
+        }
         
     }
 
     listAllHeroes = async() => {
         let listHeroes = [];
     
-        let total = 10;
+        let total = 5;
         for(let i = 1; i <= total; i++){
           const response = await fetch(`https://www.superheroapi.com/api.php/5149633008444012/${i}`);
           const data = await response.json();
@@ -39,8 +44,20 @@ class Welcome extends Component{
           }];
         }            
     
-        this.setState({allHerois:listHeroes});
+        this.setState({allHerois:listHeroes, searchText:''});
+
         console.log(listHeroes);
+        
+      }
+
+       searchSuperHeroes = async() => {
+           
+        const response = await fetch(`https://www.superheroapi.com/api.php/5149633008444012/search/${this.state.searchText}`);
+        const data = await response.json();
+        this.setState({begin:0});
+        console.log(data.results);
+        this.setState({allHerois:data.results});
+
         
       }
     
@@ -52,21 +69,30 @@ class Welcome extends Component{
 
         return (
             
-<div>
-            
+        <div className='mainDiv'>
+          
+          <div className='search'>
+            <input type="text" value={this.state.searchText} 
+                  onChange={(e) => this.setState({searchText: e.target.value})} placeholder="faça uma pesquisa"/><br/> 
+ 
+            <button onClick={this.searchSuperHeroes}>Pesquisar</button> 
+            <button onClick={this.listAllHeroes}>Listar Todos</button> 
+        </div>
+
+        <div className='listheroi'>
             { this.state.allHerois.map(item =>(
                 
-                <li key={String(item.id)}>
-                    <h1>{item.name}</h1>
+                <article key={String(item.id)}>
+                    <strong>{item.name}</strong>
                 <img src={item.image.url} alt={item.name} />
   
-              </li>
+              </article>
          
             )
             
         )}
-        
-    </div>
+        </div>
+        </div>
         );
 
     }
