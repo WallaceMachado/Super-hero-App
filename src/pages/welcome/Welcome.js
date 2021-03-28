@@ -1,5 +1,6 @@
 import React, { Component }from 'react';
 import { NavItem } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 import './welcome.css';
 
 class Welcome extends Component{
@@ -10,16 +11,20 @@ class Welcome extends Component{
             allHerois: [],
             searchText:'',
             begin:1,
+            idHeroi:'',
+            favoritos:[]
             
         }
         this.listAllHeroes = this.listAllHeroes.bind(this);
         this.searchSuperHeroes = this.searchSuperHeroes.bind(this);
+        this.addFavoritos = this.addFavoritos.bind(this);
     }
 
     componentDidMount(){
         if(this.state.begin){
         this.listAllHeroes();
         }
+        console.log('favoritos',localStorage.getItem('favoritos'));
         
     }
 
@@ -48,6 +53,7 @@ class Welcome extends Component{
 
         console.log(listHeroes);
         
+        
       }
 
        searchSuperHeroes = async() => {
@@ -57,6 +63,31 @@ class Welcome extends Component{
         this.setState({begin:0});
         console.log(data.results);
         this.setState({allHerois:data.results});
+
+        
+      }
+
+       addFavoritos =async(e) => {
+        console.log('e', e);
+        
+          if(e){
+            let hasheroi = this.state.favoritos.find(heroi=> heroi ===e );
+            console.log('hasheroi', hasheroi);
+            if(!hasheroi||hasheroi ==="undefined"){
+               
+            
+           let favoritos= [...this.state.favoritos, e]; 
+            this.setState({favoritos:favoritos});
+            console.log('favoritos',favoritos);
+           await localStorage.setItem('favoritos', JSON.stringify(favoritos));
+            console.log('id',localStorage.getItem('favoritos'));
+          }
+         
+        }
+         
+        
+        
+        
 
         
       }
@@ -84,7 +115,11 @@ class Welcome extends Component{
                 
                 <article key={String(item.id)}>
                     <strong>{item.name}</strong>
-                <img src={item.image.url} alt={item.name} />
+                    <Link to={`/HeroDetails/${item.id}`}>
+                    <img src={item.image.url} alt={item.name} />
+                </Link> 
+                <button onClick={(e)=> this.addFavoritos(item.id)}>Adicionar aos Favoritos</button> 
+                
   
               </article>
          

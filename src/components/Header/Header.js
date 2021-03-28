@@ -10,7 +10,7 @@ function Header(){
           
             <header id="main-header">
                 <div className="header-content">
-                <Link to= "/">
+                <Link to= "/Favoritos">
                     Favoritos
                 </Link> 
                 <Link to= "/">
