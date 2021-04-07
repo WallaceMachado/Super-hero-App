@@ -23,7 +23,7 @@ class HeroDetalis extends Component{
 
     }
 
-    
+
 
     detelaisHero = async(e) => {
         const { id } = this.props.match.params;
@@ -33,7 +33,7 @@ class HeroDetalis extends Component{
           console.log(data);
 
           hero=  [...hero,{
-    
+
             id: data.id,
             name: data.name,
             powerstats: data.powerstats,
@@ -43,34 +43,35 @@ class HeroDetalis extends Component{
             connections: data.connections,
             image:data.image}
         ];
-                 
-    
+
+
         this.setState({hero:hero,powerstats:data.powerstats, begin:0});
 
         console.log(this.state.hero);
         console.log(this.state.powerstats);
-        
-        
+
+
       }
 
 
     render(){
+        
         return(
             <div className='mainDiv'>
             {!this.state.begin &&
             <div className='listheroi'>
               { this.state.hero.map(item =>(
-                  
+
                   <article key={String(item.id)}>
                       <strong>{item.name}</strong>
                       <img src={item.image.url} alt={item.name} />
                       <h1>Inteligencia: {item.powerstats.intelligence}</h1>
                 </article>
-           
+
               )
-              
+
           )}
-         
+
           </div>
       }
           </div>

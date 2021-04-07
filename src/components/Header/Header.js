@@ -13,7 +13,7 @@ function Header(){
                 <Link to= "/Favoritos">
                     Favoritos
                 </Link> 
-                <Link to= "/">
+                <Link to= "/Welcome">
                 <img src={File} alt="logo"/>
                 </Link> 
                 
