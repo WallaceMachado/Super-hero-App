@@ -41,6 +41,12 @@ class firebase {
         return app.auth().signOut();
     }
 
+    //verifica se tem algum usuário logado e retorna o email
+    getCurrent(){
+        return app.auth().currentUser && app.auth().currentUser.email
+    }
+
+
     async register(nome,lastName,cel,email,password){
       await  app.auth().createUserWithEmailAndPassword(email, password)
 
@@ -58,6 +64,17 @@ class firebase {
         return new Promise(resolve =>{
             app.auth().onAuthStateChanged(resolve);
         })
+    }
+
+    async getUserName(callback){
+        if(!app.auth().currentUser){
+            return null;
+        }
+
+        const uid = app.auth().currentUser.uid;
+
+        await app.database().ref('usuarios').child(uid).once('value').then(callback)
+
     }
 
    

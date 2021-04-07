@@ -1,113 +1,71 @@
 import React, { Component }from 'react';
+import {Link, withRouter} from 'react-router-dom'; // withRouter dá possibilidade de acesso ao histórico
+import firebase from '../../firebase'
+import './login.css'
 
-import {Link} from 'react-router-dom';
-import './login.css';
 
-class Welcome extends Component{
-
+class Login extends Component{
     constructor(props){
         super(props);
-        this.state = {
-            allHerois: [],
-            searchText:'',
-            begin:1,
-            idHeroi:'',
-            favoritos:[]
-            
-        }
-        this.listAllHeroes = this.listAllHeroes.bind(this);
-        this.searchSuperHeroes = this.searchSuperHeroes.bind(this);
-        this.addFavoritos = this.addFavoritos.bind(this);
+        this.state ={
+            email: '',
+            password: ''
+        };
+        this.entrar = this.entrar.bind(this);
+        this.login = this.login.bind(this);
     }
 
     componentDidMount(){
-        if(this.state.begin){
-        this.listAllHeroes();
-        }
-        console.log('favoritos',localStorage.getItem('favoritos'));
-        
+      //verifca se já tem alguem logado, metodo feito no firebase.js
+      if(firebase.getCurrent()){
+          return  this.props.history.replace('/Welcome');
+      }
+  }
+
+    entrar(e){
+        e.preventDefault();
+        this.login();
     }
 
-    listAllHeroes = async() => {
-        let listHeroes = [];
-    
-        let total = 5;
-        for(let i = 1; i <= total; i++){
-          const response = await fetch(`https://www.superheroapi.com/api.php/5149633008444012/${i}`);
-          const data = await response.json();
-    
-         listHeroes= [...listHeroes, {
-    
-            id: data.id,
-            name: data.name,
-            powerstats: data.powerstats,
-            biography: data.biography,
-            appearance: data.appearance,
-            work: data.work,
-            connections: data.connections,
-            image:data.image
-          }];
-        }            
-    
-        this.setState({allHerois:listHeroes, searchText:''});
+    login = async () =>{
+        const {email,password}=this.state;
+        try{
+            await firebase.login(email,password)
+            .catch((error)=>{
+                if(error==="auth/user-not-found"){
+                    alert("Este usuário não existe!");
+                }else{
+                    alert("Código de erro: " + error.code);
+                    return null;
+                }
+            });
 
-        console.log(listHeroes);
-        
-        
-      }
-
-       searchSuperHeroes = async() => {
-           
-        const response = await fetch(`https://www.superheroapi.com/api.php/5149633008444012/search/${this.state.searchText}`);
-        const data = await response.json();
-        this.setState({begin:0});
-        console.log(data.results);
-        this.setState({allHerois:data.results});
-
-        
-      }
-
-       addFavoritos =async(e) => {
-        console.log('e', e);
-        
-          if(e){
-            let hasheroi = this.state.favoritos.find(heroi=> heroi ===e );
-            console.log('hasheroi', hasheroi);
-            if(!hasheroi||hasheroi ==="undefined"){
-               
-            
-           let favoritos= [...this.state.favoritos, e]; 
-            this.setState({favoritos:favoritos});
-            console.log('favoritos',favoritos);
-           await localStorage.setItem('favoritos', JSON.stringify(favoritos));
-            console.log('id',localStorage.getItem('favoritos'));
-          }
-         
+            this.props.history.replace('/Welcome');
+        } catch(error){
+            alert(error.message);
         }
-         
-        
-        
-        
-
-        
-      }
-    
-    
-    
-
+    }
 
     render(){
+        return(
+            <div>
+                <form onSubmit={this.entrar} id="login">
+                    <label>Email:</label><br/>
+                    <input type="email" autoComplete="off" autoFocus value={this.state.email}
+                    onChange={(e)=> this.setState({email: e.target.value})} placeholder="teste@teste.com"
+                    /><br/>
+                    <label>Password:</label><br/>
+                    <input type="password" autoComplete="off" value={this.state.password}
+                    onChange={(e)=> this.setState({password: e.target.value})} placeholder="digite sua senha"
+                    /><br/>
+                    <button type='submit'>Entrar</button>
 
-        return (
-            
-        <div className='mainDiv'>
-          
-         <h1>Login</h1>
-        </div>
-        );
-
+                    <Link to="/Register">Ainda não possui uma conta?</Link>
+                </form>
+               
+            </div>
+        )
     }
 }
 
-
-export default Welcome;
+export default withRouter(Login);

@@ -2,6 +2,7 @@ import React, { Component }from 'react';
 import { NavItem } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import './welcome.css';
+import firebase from '../../firebase'
 
 class Welcome extends Component{
 
@@ -21,6 +22,16 @@ class Welcome extends Component{
     }
 
     componentDidMount(){
+      if(!firebase.getCurrent()){
+        this.props.history.replace('/');
+        return null;
+    }
+
+    firebase.getUserName((info)=>{
+        
+        localStorage.nome = info.val().nome;
+        this.setState({name: localStorage.nome});
+    })
         if(this.state.begin){
         this.listAllHeroes();
         }
