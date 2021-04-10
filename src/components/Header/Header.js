@@ -45,6 +45,7 @@ class Header extends Component{
 
           
             <header id="main-header">
+                {firebase.getCurrent()?
                 <div className="header-content">
                 <Link to= "/Favoritos">
                     Favoritos
@@ -60,6 +61,12 @@ class Header extends Component{
 
             
                 </div>
+                :(<div className="header-content">
+               
+                <img src={File} alt="logo"/>
+               
+            
+                </div>)}
             </header>
         )
     }
