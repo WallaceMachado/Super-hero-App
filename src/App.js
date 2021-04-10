@@ -8,6 +8,7 @@ import Header from './components/Header/Header';
 import Favoritos from './pages/Favoritos/Favoritos';
 import HeroDetails from './pages/HeroDetails/HeroDetails';
 import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
 
 
 class App extends Component{
@@ -34,6 +35,8 @@ class App extends Component{
                 <Route exact path="/welcome" component={Welcome}/>
                 <Route exact path="/favoritos" component={Favoritos}/>
                 <Route exact path="/HeroDetails/:id" component={HeroDetails}/>
+                <Route exact path="/register" component={Register}/>
+
 
             </Switch>
         </BrowserRouter>

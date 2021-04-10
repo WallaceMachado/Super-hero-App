@@ -1,6 +1,7 @@
 import React, { Component }from 'react';
 import { NavItem } from 'react-bootstrap';
 import './favoritos.css';
+import firebase from '../../firebase';
 
 class Favoritos extends Component{
 
@@ -21,7 +22,10 @@ class Favoritos extends Component{
     }
 
     componentDidMount(){
-        
+      if(!firebase.getCurrent()){
+        this.props.history.replace('/');
+        return null;
+    }
         
         this.listAllHeroes();
         
