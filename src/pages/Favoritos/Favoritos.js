@@ -12,7 +12,8 @@ class Favoritos extends Component{
             searchText:'',
             begin:1,
             idHeroi:'',
-            favoritos:[]
+            favoritos:[],
+            listHeroes:[]
             
         }
         this.listAllHeroes = this.listAllHeroes.bind(this);
@@ -34,31 +35,39 @@ class Favoritos extends Component{
 
     listAllHeroes = async(e) => {
        
-        let favoritos = JSON.parse(localStorage.getItem('favoritos'));
-        console.log(favoritos);
-        let total = favoritos.length-1;
+        
+        
         let listHeroes=[];
+        let listfavoritos=[];
+        const uid = firebase.getCurrentId();
+        
+       await firebase.app.ref('usuarios').child(uid).child('Favoritos').once('value',(snapshot)=> {
+         
+          
+          snapshot.forEach((childItem)=> {
+            listfavoritos=[...listfavoritos, childItem.val()]});
+          
+          });
+
+          console.log(listfavoritos);
+          let total = listfavoritos.length-1;
         
         
         for(let i = 0; i <= total; i++){
-            console.log('i',favoritos[i]);
-          const response = await fetch(`https://www.superheroapi.com/api.php/5149633008444012/${favoritos[i]}`);
+            console.log('i',listfavoritos[i]);
+          const response = await fetch(`https://www.superheroapi.com/api.php/5149633008444012/${listfavoritos[i]}`);
           const data = await response.json();
     
          listHeroes= [...listHeroes, {
     
             id: data.id,
             name: data.name,
-            powerstats: data.powerstats,
-            biography: data.biography,
-            appearance: data.appearance,
-            work: data.work,
-            connections: data.connections,
+           
             image:data.image
           }];
         }            
     
-        this.setState({allHerois:listHeroes, begin:0, favoritos:favoritos});
+        this.setState({allHerois:listHeroes, begin:0, favoritos:listfavoritos});
 
         console.log(this.state.allHerois);
         
@@ -70,20 +79,15 @@ class Favoritos extends Component{
       deleteFavoritos = async(e) => {
         console.log('e', e);
         
-        if(e){
-         let hasheroi =  await this.state.allHerois.filter(heroi=> heroi.id !==e );
-         let hasFavorito =  await this.state.favoritos.filter(heroi=> heroi !==e );
-          console.log('hasheroi', hasheroi);
-          if(hasheroi){
-             
-          
-         
-          this.setState({allHerois:hasheroi});
-          console.log('favoritos',hasFavorito);
-         await localStorage.setItem('favoritos', JSON.stringify(hasFavorito));
-          console.log('id',localStorage.getItem('favoritos'));
-          
-        }
+        try{
+          if(e){
+           await firebase.deleteFavorite(e);
+           alert("Heroi deletado dos favoritos");
+           this.listAllHeroes();
+          }
+        }catch(error){
+          alert(error.message);
+      }
        
       }
        
@@ -92,7 +96,7 @@ class Favoritos extends Component{
       
 
       
-    }
+    
   
   
 

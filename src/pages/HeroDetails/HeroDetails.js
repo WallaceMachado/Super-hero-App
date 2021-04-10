@@ -70,9 +70,9 @@ class HeroDetalis extends Component{
     render(){
         
         return(
-            <div className='mainDiv'>
+            <div className='details'>
             {!this.state.begin &&
-            <div className='listheroi'>
+            <div className='detailsheroi'>
               { this.state.hero.map(item =>(
 
                   <article key={String(item.id)}>
@@ -85,13 +85,15 @@ class HeroDetalis extends Component{
           }
 
           
-            
+<div className='powerstats'> 
           {
+             
                this.state.powerstats.map(item =>(
 
                 <article key={String(item.x.intelligence)}>
                     <strong>Powerstats</strong>
                     <h3>Inteligencia: {item.x.intelligence}</h3>
+                    
                     <h3>strength: {item.x.strength}</h3>
                     <h3>speed: {item.x.speed}</h3>
                     <h3>durability: {item.x.durability}</h3>
@@ -103,6 +105,7 @@ class HeroDetalis extends Component{
                ))
 
                }
+              
                  {
                
 
@@ -118,7 +121,7 @@ class HeroDetalis extends Component{
                
 
                }
-
+        </div>
           </div>
       }
           </div>

@@ -80,19 +80,14 @@ class Welcome extends Component{
 
        addFavoritos =async(e) => {
         console.log('e', e);
-        
+        try{
           if(e){
-            let hasheroi = this.state.favoritos.find(heroi=> heroi ===e );
-            console.log('hasheroi', hasheroi);
-            if(!hasheroi||hasheroi ==="undefined"){
-               
-            
-           let favoritos= [...this.state.favoritos, e]; 
-            this.setState({favoritos:favoritos});
-            console.log('favoritos',favoritos);
-           await localStorage.setItem('favoritos', JSON.stringify(favoritos));
-            console.log('id',localStorage.getItem('favoritos'));
+           await firebase.addFavorite(e);
+           alert("adicionado aos Favoritos");
           }
+        }catch(error){
+          alert(error.message);
+      }
          
         }
          
@@ -101,7 +96,7 @@ class Welcome extends Component{
         
 
         
-      }
+      
     
     
     

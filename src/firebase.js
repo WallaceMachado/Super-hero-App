@@ -46,6 +46,10 @@ class firebase {
         return app.auth().currentUser && app.auth().currentUser.email
     }
 
+    getCurrentId(){
+        return app.auth().currentUser.uid
+    }
+
 
     async register(nome,lastName,cel,email,password){
       await  app.auth().createUserWithEmailAndPassword(email, password)
@@ -59,6 +63,24 @@ class firebase {
       })
         
     }
+
+    async addFavorite(idHeroi){
+       
+        const heroi=idHeroi;
+        const uid = app.auth().currentUser.uid;
+  
+        return app.database().ref('usuarios').child(uid).child('Favoritos').child(heroi).set(idHeroi)
+          
+      }
+
+      async deleteFavorite(idHeroi){
+       
+        const heroi=idHeroi;
+        const uid = app.auth().currentUser.uid;
+  
+        return app.database().ref('usuarios').child(uid).child('Favoritos').child(heroi).remove()
+          
+      }
 
     isInitialized(){
         return new Promise(resolve =>{
@@ -76,6 +98,8 @@ class firebase {
         await app.database().ref('usuarios').child(uid).once('value').then(callback)
 
     }
+
+    
 
    
 
