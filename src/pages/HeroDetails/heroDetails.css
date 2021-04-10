@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 800px;
+    width: 1200px;
 }
 
 
@@ -20,6 +20,8 @@
     margin: 15px;
     padding: 15px; 
     border-radius: 5px;
+    justify-content: space-between;
+
 }
 .detailsheroi article a{
     text-decoration: none;
@@ -32,8 +34,8 @@
     text-align: center;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;  
-    padding: 100px;
-    justify-content: space-between;
+    padding: 10px;
+    
 }
 
 .detailsheroi strong{

@@ -10,7 +10,10 @@ class HeroDetalis extends Component{
             hero: [],
             begin:1,
             powerstats:[],
-            connections:[]
+            connections:[],
+            biography:[],
+            appearance:[],
+            work:[]
         }
         this.detelaisHero = this.detelaisHero.bind(this);
     }
@@ -31,6 +34,9 @@ class HeroDetalis extends Component{
         let hero =[];
         let powerstats=[];
         let connections=[];
+        let biography=[];
+        let appearance=[];
+        let work=[];
           const response = await fetch(`https://www.superheroapi.com/api.php/5149633008444012/${id}`);
           const data = await response.json();
           console.log(data);
@@ -47,19 +53,29 @@ class HeroDetalis extends Component{
             image:data.image}
         ];
 
+        Object.keys(data.biography).forEach(function(item){
+            biography=  [...biography, data.biography[item]]});
+
         Object.keys(data.connections).forEach(function(item){
             connections=  [...connections, data.connections[item]]});
+        
+        Object.keys(data.appearance).forEach(function(item){
+            appearance=  [...appearance, data.appearance[item]]});
+
+        Object.keys(data.work).forEach(function(item){
+            work=  [...work, data.work[item]]});
           
 
-
+            
         
         let x=data.powerstats;
         powerstats=[{x}]
-        this.setState({hero:hero,powerstats:powerstats, begin:0, connections:connections});
+        this.setState({hero:hero,powerstats:powerstats, begin:0, connections:connections,biography:biography,appearance:appearance,work:work});
 
         console.log(this.state.hero);
         console.log(this.state.powerstats);
         console.log("connections: ",connections);
+        console.log("appearance: ",appearance);
 
         
 
@@ -108,19 +124,73 @@ class HeroDetalis extends Component{
               
                  {
                
-
                 <article key={String("1")}>
                     <strong>Connections</strong>
                     <h3>Group-Affiliation: </h3>
-                    <h4>{this.state.connections[0]}</h4>
+                    {this.state.connections[0]}
                     <h3>Relatives: </h3>
-                    <h4>{this.state.connections[1]}</h4>
+                    {this.state.connections[1]}
                 
               </article>
                
+               }
+
                
 
-               }
+                {
+               
+               <article key={String("2")}>
+                   <strong>appearance</strong>
+                   <h3>gender: </h3>
+                   {this.state.appearance[0]}
+                   <h3>race: </h3>
+                   {this.state.appearance[1]}
+                   <h3>eye-color: </h3>
+                   {this.state.appearance[4]}
+                   <h3>hair-color: </h3>
+                   {this.state.appearance[6]}
+               
+             </article>
+              
+              }
+
+{
+               
+               <article key={String("3")}>
+                   <strong>biography</strong>
+                   <h3>full-namen: </h3>
+                   {this.state.biography[0]}
+                   <h3>alter-egos: </h3>
+                   {this.state.biography[1]}
+                   <h3>place-of-birth: </h3>
+                   {this.state.biography[3]}
+                   <h3>first-appearance: </h3>
+                   {this.state.biography[4]}
+                   <h3>publisher: </h3>
+                   {this.state.biography[5]}
+                   <h3>alignment: </h3>
+                   {this.state.biography[6]}
+               
+             </article>
+
+             
+              
+              }
+
+{
+               
+               <article key={String("2")}>
+                   <strong>work</strong>
+                   <h3>occupation: </h3>
+                   {this.state.work[0]}
+                   <h3>base: </h3>
+                   {this.state.work[1]}
+                   
+                  
+               
+             </article>
+    }
+              
         </div>
           </div>
       }
