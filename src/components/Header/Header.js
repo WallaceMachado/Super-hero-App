@@ -19,7 +19,7 @@ class Header extends Component{
     async componentDidMount(){
         //verifica se tem algum usuário logado - getCurrent é definido no component firebase.js
         if(!firebase.getCurrent()){
-            this.props.history.replace('/login');
+            this.props.history.replace('/');
             return null;
         }
 

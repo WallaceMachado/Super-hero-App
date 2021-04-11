@@ -49,6 +49,7 @@ class Login extends Component{
     render(){
         return(
             <div>
+                {console.log("cheguei")}
                 <form onSubmit={this.entrar} id="login">
                     <label>Email:</label><br/>
                     <input type="email" autoComplete="off" autoFocus value={this.state.email}

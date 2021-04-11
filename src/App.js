@@ -1,5 +1,6 @@
 import React, { Component }from 'react';
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import firebase from './firebase'
 
 
