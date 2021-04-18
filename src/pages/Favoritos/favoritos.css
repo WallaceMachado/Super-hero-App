@@ -1,44 +1,20 @@
 .mainDiv{
-    display: flex;
-    width: 10%;
-    flex-direction: column;
+   
+    width: 100%;
+    
+   
+    
+    max-width: 2500px;
+    
     align-items: center;
-    justify-content: center;
-    padding: 30px;
-    max-width: 100px;
-    
-    
     
     justify-content: space-between;
+    
 }
 
-.search{
-    display: flex;
-    width: 10%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
-    max-width: 200px;
-    
-    
-    
-    justify-content: space-between;
-}
 
-.listheroi{
-    display: flex;
-    width: 10%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
-    max-width: 100px;
-    
-    
-    
-    justify-content: space-between;
-}
+
+
 
 .mainDiv article a{
     text-decoration: none;

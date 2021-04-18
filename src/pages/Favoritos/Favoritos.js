@@ -1,6 +1,9 @@
 import React, { Component }from 'react';
-import { NavItem } from 'react-bootstrap';
+import { NavItem, Form, Col, Button, Container, Row, Card} from 'react-bootstrap';
+import Spinner from 'react-bootstrap/Spinner'
+import {Link} from 'react-router-dom';
 import './favoritos.css';
+
 import firebase from '../../firebase';
 
 class Favoritos extends Component{
@@ -13,7 +16,8 @@ class Favoritos extends Component{
             begin:1,
             idHeroi:'',
             favoritos:[],
-            listHeroes:[]
+            listHeroes:[],
+            loading: true,
             
         }
         this.listAllHeroes = this.listAllHeroes.bind(this);
@@ -35,7 +39,7 @@ class Favoritos extends Component{
 
     listAllHeroes = async(e) => {
        
-        
+      this.setState({loading:true});
         
         let listHeroes=[];
         let listfavoritos=[];
@@ -65,9 +69,11 @@ class Favoritos extends Component{
            
             image:data.image
           }];
-        }            
+        } 
+        
+        
     
-        this.setState({allHerois:listHeroes, begin:0, favoritos:listfavoritos});
+        this.setState({allHerois:listHeroes, begin:0, favoritos:listfavoritos, loading:false});
 
         console.log(this.state.allHerois);
         
@@ -78,11 +84,11 @@ class Favoritos extends Component{
 
       deleteFavoritos = async(e) => {
         console.log('e', e);
-        
+        this.setState({loading:true});
         try{
           if(e){
            await firebase.deleteFavorite(e);
-           alert("Heroi deletado dos favoritos");
+          // alert("Heroi deletado dos favoritos");
            this.listAllHeroes();
           }
         }catch(error){
@@ -90,38 +96,80 @@ class Favoritos extends Component{
       }
        
       }
-       
-      
-      
-      
-
-      
-    
-  
-  
-
+   
     render(){
 
         return (
+          <Container>
             
+            {!this.state.loading ? (
+              
         <div className='mainDiv'>
           {!this.state.begin &&
           <div className='listheroi'>
-            { this.state.allHerois.map(item =>(
-                
-                <article key={String(item.id)}>
-                    <strong>{item.name}</strong>
-                    <img src={item.image.url} alt={item.name} />       
-                <button onClick={(e)=> this.deleteFavoritos(item.id)}>Excluir Favorito</button> 
-  
-              </article>
-         
-            )
             
-        )}
-        </div>
+            
+            
+              <Row>
+                {this.state.allHerois.map(item =>(
+                  <Col>
+                    <Card style={{ width: '18rem', border:'transparent', background:'transparent' }}>
+                      <Card.Title style={{ textAlign: 'center',marginTop: '.5rem',  color: '#f70606' }}>{item.name}</Card.Title>
+                      <Link to={`/HeroDetails/${item.id}`}>
+                      <Card.Img variant="top" src={item.image.url} alt={item.name}  
+                      style={{marginTop: '-0.8rem', marginBottom: '-1.8rem'}} />
+                      </Link>
+                      
+                      <Card.Body>
+                        <Button variant="primary" onClick={(e)=>  this.deleteFavoritos(item.id)}
+                        style={{marginLeft: '-.7rem', backgroundColor: '#2b2c2d',borderColor:'#2b2c2d', boxShadow:'none'}}>
+                         Excluir Favorito
+                          </Button>
+                      </Card.Body>
+                    </Card>
+                    
+                  </Col>
+        
+              ))}
+              </Row>
+
+              
+              </div>
     }
+
+    
         </div>
+
+        
+        
+           
+             ):
+    ( <div
+         style={{
+                 display: "flex",
+                 justifyContent: "center",
+                 alignItems: "center",
+                 height: "40px",
+                 width: "100%",
+                 marginTop: "30px",
+                 position: 'absolute',
+                 left: '50%',
+                 top: '50%',
+                 transform: 'translate(-50%, -50%)',
+               }}
+       >
+         <Spinner animation="border" role="status" variant='danger'>
+           <span className="sr-only">Loading...</span>
+         </Spinner>
+     </div>
+    )
+   
+      }
+          </Container>
+          
+            
+        
+       
         );
 
     }
