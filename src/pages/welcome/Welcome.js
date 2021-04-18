@@ -1,5 +1,6 @@
 import React, { Component }from 'react';
 import { NavItem, Form, Col, Button, Container, Row, Card} from 'react-bootstrap';
+import Spinner from 'react-bootstrap/Spinner'
 import {Link} from 'react-router-dom';
 
 //import './welcome.css';
@@ -21,6 +22,7 @@ class Welcome extends Component{
             color:'',
             page:1,
             teste:'',
+            loading:true,
             
         }
         this.listAllHeroes = this.listAllHeroes.bind(this);
@@ -65,6 +67,7 @@ class Welcome extends Component{
     }
 
     listAllHeroes = async(e) => {
+      this.setState({loading:true});
         let listHeroes = [];
         let page1=1;
         let total=1;
@@ -94,7 +97,7 @@ class Welcome extends Component{
           }];
         }            
     
-        this.setState({allHerois:listHeroes, searchText:'', buttonPesquisar: true, page:page1});
+        this.setState({allHerois:listHeroes, searchText:'', buttonPesquisar: true, page:page1, loading:false});
         console.log('page:',this.state.page);
         console.log(listHeroes);
         
@@ -102,12 +105,12 @@ class Welcome extends Component{
       }
 
        searchSuperHeroes = async() => {
-           
+        this.setState({loading:true});
         const response = await fetch(`https://www.superheroapi.com/api.php/5149633008444012/search/${this.state.searchText}`);
         const data = await response.json();
         this.setState({begin:0});
         console.log(data.results);
-        this.setState({allHerois:data.results, buttonPesquisar:false, page:1});
+        this.setState({allHerois:data.results, buttonPesquisar:false, page:1, loading:false});
 
         
       }
@@ -139,7 +142,7 @@ class Welcome extends Component{
     render(){
 
         return (
-        
+          !this.state.loading ? (
           <Container >
             
             <div className='busca'>
@@ -217,6 +220,26 @@ class Welcome extends Component{
         </PageActions>
     :console.log()}
           </Container>
+          ):
+         ( <div
+              style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "40px",
+                      width: "100%",
+                      marginTop: "30px",
+                      position: 'absolute',
+                      left: '50%',
+                      top: '50%',
+                      transform: 'translate(-50%, -50%)',
+                    }}
+            >
+              <Spinner animation="border" role="status" variant='danger'>
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+          </div>
+         )
         );
 
     }
