@@ -2,8 +2,9 @@ import React, { Component }from 'react';
 import { NavItem, Form, Col, Button, Container, Row, Card} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
-import './welcome.css';
+//import './welcome.css';
 import firebase from '../../firebase'
+import dark from '../../styles/dark'
 
 class Welcome extends Component{
 
@@ -108,8 +109,8 @@ class Welcome extends Component{
 
         return (
         
-          <Container>
-
+          <Container >
+            <dark/>
             <div className='busca'>
 
               <Form>
@@ -146,7 +147,7 @@ class Welcome extends Component{
                 {this.state.allHerois.map(item =>(
                   <Col>
                     <Card style={{ width: '18rem', border:'transparent', background:'transparent' }}>
-                      <Card.Title style={{ textAlign: 'center',marginTop: '.5rem' }}>{item.name}</Card.Title>
+                      <Card.Title style={{ textAlign: 'center',marginTop: '.5rem',  color: '#800404' }}>{item.name}</Card.Title>
                       <Link to={`/HeroDetails/${item.id}`}>
                       <Card.Img variant="top" src={item.image.url} alt={item.name}  
                       style={{marginTop: '-0.8rem', marginBottom: '-1.8rem'}} />

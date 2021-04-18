@@ -41,6 +41,14 @@ class firebase {
         return app.auth().signOut();
     }
 
+    /* Olheiro 
+    firebase.database().ref('usuarios').child(1).on('value', (snapshot)=>{
+      let state = this.state;
+      state.nome = snapshot.val().nome;
+      state.idade = snapshot.val().idade;
+      this.setState(state);
+    */
+
     //verifica se tem algum usuário logado e retorna o email
     getCurrent(){
         return app.auth().currentUser && app.auth().currentUser.email
