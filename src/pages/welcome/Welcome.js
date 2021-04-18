@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 
 //import './welcome.css';
 import firebase from '../../firebase'
+import {ContainerWelcome,PageActions} from './WelcomoStyles'
 import dark from '../../styles/dark'
 
 class Welcome extends Component{
@@ -16,12 +17,16 @@ class Welcome extends Component{
             begin:1,
             idHeroi:'',
             favoritos:[],
-            buttonPesquisar:true
+            buttonPesquisar:true,
+            color:'',
+            page:1,
+            teste:'',
             
         }
         this.listAllHeroes = this.listAllHeroes.bind(this);
         this.searchSuperHeroes = this.searchSuperHeroes.bind(this);
         this.addFavoritos = this.addFavoritos.bind(this);
+        this.mudarPagina = this.mudarPagina.bind(this);
     }
 
     componentDidMount(){
@@ -39,14 +44,40 @@ class Welcome extends Component{
         this.listAllHeroes();
         }
         console.log('favoritos',localStorage.getItem('favoritos'));
+
+        let themeGet = JSON.parse(localStorage.getItem('tema'));
+
+        if(themeGet===false){
+          this.setState({color:'#fff'})
+        } else{
+          this.setState({color:'#800404'})
+        }
         
     }
 
-    listAllHeroes = async() => {
+    mudarPagina=(e)=>{
+      console.log('e:',e);
+      let page1 = this.state.page;
+      if(e === 'back'){page1 =  page1 - 1 }else{page1= page1 + 1} ;
+      
+      
+      this.listAllHeroes(page1);
+    }
+
+    listAllHeroes = async(e) => {
         let listHeroes = [];
-    
-        let total = 12;
-        for(let i = 1; i <= total; i++){
+        let page1=1;
+        let total=1;
+        if(e>=1){
+          page1=e;
+           total = page1*12;
+        }else{total=12}
+        
+       
+        console.log('page12:',e);
+        
+        console.log('total',total);
+        for(let i = total-11; i <= total; i++){
           const response = await fetch(`https://www.superheroapi.com/api.php/5149633008444012/${i}`);
           const data = await response.json();
     
@@ -63,8 +94,8 @@ class Welcome extends Component{
           }];
         }            
     
-        this.setState({allHerois:listHeroes, searchText:'', buttonPesquisar: true});
-
+        this.setState({allHerois:listHeroes, searchText:'', buttonPesquisar: true, page:page1});
+        console.log('page:',this.state.page);
         console.log(listHeroes);
         
         
@@ -76,7 +107,7 @@ class Welcome extends Component{
         const data = await response.json();
         this.setState({begin:0});
         console.log(data.results);
-        this.setState({allHerois:data.results, buttonPesquisar:false});
+        this.setState({allHerois:data.results, buttonPesquisar:false, page:1});
 
         
       }
@@ -110,7 +141,7 @@ class Welcome extends Component{
         return (
         
           <Container >
-            <dark/>
+            
             <div className='busca'>
 
               <Form>
@@ -142,12 +173,12 @@ class Welcome extends Component{
             </div>
 
             <div className='principal'>
-
+              
               <Row>
                 {this.state.allHerois.map(item =>(
                   <Col>
                     <Card style={{ width: '18rem', border:'transparent', background:'transparent' }}>
-                      <Card.Title style={{ textAlign: 'center',marginTop: '.5rem',  color: '#800404' }}>{item.name}</Card.Title>
+                      <Card.Title style={{ textAlign: 'center',marginTop: '.5rem',  color: '#f70606' }}>{item.name}</Card.Title>
                       <Link to={`/HeroDetails/${item.id}`}>
                       <Card.Img variant="top" src={item.image.url} alt={item.name}  
                       style={{marginTop: '-0.8rem', marginBottom: '-1.8rem'}} />
@@ -166,6 +197,25 @@ class Welcome extends Component{
               ))}
               </Row>
             </div>
+            {this.state.buttonPesquisar ?
+            <PageActions>
+          <button 
+          type="button" 
+          onClick={()=> this.mudarPagina('back')  }
+          disabled={this.state.page < 2}
+          >
+            Página Anterior
+          </button>
+          
+          <button 
+          type="button" 
+          onClick={()=> this.mudarPagina('next') }
+          
+          >
+            Proxima Página
+          </button>
+        </PageActions>
+    :console.log()}
           </Container>
         );
 
