@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { NavItem, Form, Col, Button, Container, Row, Card} from 'react-bootstrap';
 
 import './heroDetails.css';
-import Biografy from './biography';
+import Biography from './biography';
 import Powerstats from './powerstats';
 import Connections from './connections';
 import Appearance from './appearance';
 import Work from './work';
 import {Link} from 'react-router-dom';
-
+import {HashLink} from 'react-router-hash-link';
 
 class HeroDetalis extends Component{
 
@@ -99,7 +99,26 @@ class HeroDetalis extends Component{
             <div className='details'>
                 {!this.state.begin &&
                     <div className='detailsheroi'>
-               
+                <Form>
+                
+                <Form.Row className="align-items-center">
+                
+                 
+                 
+                  
+                  <Col xs="auto" className="my-1" style={{ paddingTop:'20px', paddingBottom: '20px' }}>
+                  <HashLink smooth to="#Powerstats" >Powerstats</HashLink>
+                  <HashLink smooth to="#Biography">Biography</HashLink>
+                  <HashLink smooth to="#Connections">Connections</HashLink>
+                  <HashLink smooth to="#Appearance">Appearance</HashLink>
+                  <HashLink smooth to="#Work">Work</HashLink>
+                    
+                        
+                                    
+                  </Col>
+                
+                </Form.Row>
+                </Form>
                     
                         { this.state.hero.map(item =>(
 
@@ -117,7 +136,7 @@ class HeroDetalis extends Component{
                         <Powerstats list={this.state.powerstats}/>
                         </div>
                         <div>
-                        <Biografy list={this.state.biography}/>
+                        <Biography list={this.state.biography}/>
                         </div>
                         <div>
                         <Connections list={this.state.connections}/>

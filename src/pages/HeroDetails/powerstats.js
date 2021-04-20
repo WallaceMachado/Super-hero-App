@@ -21,7 +21,7 @@ class Powerstats extends Component{
     render(){
         
         return(
-            <Container>
+            <Container id="Powerstats">
 
                 <Form>
                 {this.state.list.map(item =>(

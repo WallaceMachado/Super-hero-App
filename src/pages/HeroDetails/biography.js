@@ -27,7 +27,7 @@ class Biography extends Component{
     render(){
         
         return(
-            <Container>
+            <Container id="Biography">
                 
                 <Form>
                 

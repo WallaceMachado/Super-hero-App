@@ -27,7 +27,7 @@ class Connections extends Component{
     render(){
         
         return(
-            <Container>
+            <Container id="Connections">
                 
                 <Form>
                 

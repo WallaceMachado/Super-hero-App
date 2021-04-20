@@ -27,7 +27,7 @@ class Appearance extends Component{
     render(){
         
         return(
-            <Container>
+            <Container id='Appearance'>
                 
                 <Form>
                 
