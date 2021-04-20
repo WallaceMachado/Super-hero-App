@@ -94,27 +94,42 @@ class HeroDetalis extends Component{
     render(){
         
         return(
-            <Container>
+            <Container style={{              
+                display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '1800px', justifyContent: 'space-between', width: '100%'}}>
                 
-            <div className='details'>
+            <div className='details' >
                 {!this.state.begin &&
                     <div className='detailsheroi'>
-                <Form>
+                <Form >
                 
-                <Form.Row className="align-items-center">
+                <Form.Row className="align-items-center" >
                 
                  
                  
                   
-                  <Col xs="auto" className="my-1" style={{ paddingTop:'20px', paddingBottom: '20px' }}>
-                  <HashLink smooth to="#Powerstats" >Powerstats</HashLink>
-                  <HashLink smooth to="#Biography">Biography</HashLink>
-                  <HashLink smooth to="#Connections">Connections</HashLink>
-                  <HashLink smooth to="#Appearance">Appearance</HashLink>
-                  <HashLink smooth to="#Work">Work</HashLink>
-                    
-                        
-                                    
+                  <Col style={{              
+                   display: 'flex'}}>
+                  <HashLink smooth to="#Powerstats" 
+                  style={{              
+                   fontSize: '25px', color:'#fff'}} >
+                       Powerstats </HashLink>
+                       </Col>
+                    <Col>
+                  <HashLink smooth to="#Biography" style={{              
+                   fontSize: '25px', color:'#fff'}}>Biography</HashLink>
+                  </Col>
+                  <Col>
+                  <HashLink smooth to="#Connections" style={{              
+                   fontSize: '25px', color:'#fff'}}>Connections</HashLink>
+                  </Col>
+                  <Col>
+                  <HashLink smooth to="#Appearance" style={{              
+                   fontSize: '25px', color:'#fff'}}>Appearance</HashLink>
+                  </Col>
+                  <Col>
+                  <HashLink smooth to="#Work" style={{              
+                   fontSize: '25px', color:'#fff'}}>Work</HashLink>
+             
                   </Col>
                 
                 </Form.Row>
@@ -123,7 +138,8 @@ class HeroDetalis extends Component{
                         { this.state.hero.map(item =>(
 
                             <article key={String(item.id)}>
-                                <strong>{item.name}</strong>
+                                <strong  style={{              
+                   fontSize: '25px', color:'#f70606'}}>{item.name}</strong>
                                 <img src={item.image.url} alt={item.name} />
                             
                             </article>
@@ -131,7 +147,7 @@ class HeroDetalis extends Component{
 
                         }
 
-                        <div className='powerstats'> 
+                        <div className='powerstats'  > 
                         <div>
                         <Powerstats list={this.state.powerstats}/>
                         </div>

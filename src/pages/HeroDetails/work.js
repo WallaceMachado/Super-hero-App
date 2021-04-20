@@ -28,28 +28,34 @@ class Work extends Component{
         
         return(
             <Container id="Work">
-                
-                <Form>
-                
-                <Form.Row className="align-items-center">
-                
-                  <Col sm={3} className="my-1"  style={{ paddingTop:'20px', paddingBottom: '20px', paddingLeft: '40px' }}>
-                    
-                    <h1 style={{color:'#f70606'}}>Work</h1>
-                  </Col>
-                 
+
+                  <Row>
                   
-                  <Col xs="auto" className="my-1" style={{ paddingTop:'20px', paddingBottom: '20px' }}>
+                  <Col>
+                    <Card style={{ marginLeft: '-3.1rem', width: '75rem', border:'#fff', background:'transparent', justifyContent: 'space-between' }}>
+                      <Card.Title style={{  fontSize: '25px',textAlign: 'left',marginTop: '.5rem',  color: '#f70606' }}>Work</Card.Title>
+                      
+
+                      
+                      <Card.Body style={{color:'#fff'}}>
+                      
+                      <Col xs="auto" className="my-1" >
                     
                     <Row> <h3>Occupation: {this.state.list[0]}</h3></Row>   
                      <Row><h3>Base: {this.state.list[1]}</h3></Row>
                         
                                     
                   </Col>
+                  
+                      </Card.Body>
+                    </Card>
+                    
+                  </Col>
+        
+              
+             </Row>
                 
-                </Form.Row>
-                
-              </Form>
+
             </Container>
         );
         }

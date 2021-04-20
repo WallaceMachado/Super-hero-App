@@ -29,27 +29,34 @@ class Connections extends Component{
         return(
             <Container id="Connections">
                 
-                <Form>
                 
-                <Form.Row className="align-items-center">
-                
-                  <Col sm={3} className="my-1"  style={{ paddingTop:'20px', paddingBottom: '20px', paddingLeft: '40px' }}>
-                    
-                    <h1 style={{color:'#f70606'}}>Connections</h1>
-                  </Col>
-                
-                  
-                  <Col xs="auto" className="my-1" style={{ paddingTop:'20px', paddingBottom: '20px' }}>
-                   
 
-                    <Row> <h3>Group-Affiliation: {this.state.list[0]}</h3></Row>   
+              <Row>
+                  
+                  <Col>
+                    <Card style={{ marginLeft: '-3.1rem', width: '75rem', border:'#fff', background:'transparent', justifyContent: 'space-between' }}>
+                      <Card.Title style={{  fontSize: '25px',textAlign: 'left',marginTop: '.5rem',  color: '#f70606' }}>Connections</Card.Title>
+                      
+
+                      
+                      <Card.Body style={{color:'#fff'}}>
+                      
+                      <Col xs="auto" className="my-1" >
+                    
+                      <Row> <h3>Group-Affiliation: {this.state.list[0]}</h3></Row>   
                      <Row><h3>Relatives: {this.state.list[1]}</h3></Row>   
                                     
+                        
+                                    
                   </Col>
-                
-                </Form.Row>
-                
-              </Form>
+                  
+                      </Card.Body>
+                    </Card>
+                    
+                  </Col>
+        
+              
+             </Row>
             </Container>
         );
         }
