@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
-import './heroDetails.css'
+import { NavItem, Form, Col, Button, Container, Row, Card} from 'react-bootstrap';
+
+import './heroDetails.css';
+import Biografy from './biography';
+import Powerstats from './powerstats';
+import Connections from './connections';
+import Appearance from './appearance';
+import Work from './work';
 import {Link} from 'react-router-dom';
+
 
 class HeroDetalis extends Component{
 
@@ -86,115 +94,46 @@ class HeroDetalis extends Component{
     render(){
         
         return(
-            <div className='details'>
-            {!this.state.begin &&
-            <div className='detailsheroi'>
-              { this.state.hero.map(item =>(
-
-                  <article key={String(item.id)}>
-                      <strong>{item.name}</strong>
-                      <img src={item.image.url} alt={item.name} />
-                   
-                      </article>
-              ))
-
-          }
-
-          
-<div className='powerstats'> 
-          {
-             
-               this.state.powerstats.map(item =>(
-
-                <article key={String(item.x.intelligence)}>
-                    <strong>Powerstats</strong>
-                    <h3>Inteligencia: {item.x.intelligence}</h3>
-                    
-                    <h3>strength: {item.x.strength}</h3>
-                    <h3>speed: {item.x.speed}</h3>
-                    <h3>durability: {item.x.durability}</h3>
-                    <h3>power: {item.x.power}</h3>
-                    <h3>combat: {item.x.combat}</h3>
-                    
-                    
-              </article>
-               ))
-
-               }
-              
-                 {
-               
-                <article key={String("1")}>
-                    <strong>Connections</strong>
-                    <h3>Group-Affiliation: </h3>
-                    {this.state.connections[0]}
-                    <h3>Relatives: </h3>
-                    {this.state.connections[1]}
+            <Container>
                 
-              </article>
+            <div className='details'>
+                {!this.state.begin &&
+                    <div className='detailsheroi'>
                
-               }
+                    
+                        { this.state.hero.map(item =>(
 
-               
+                            <article key={String(item.id)}>
+                                <strong>{item.name}</strong>
+                                <img src={item.image.url} alt={item.name} />
+                            
+                            </article>
+                            ))
 
-                {
-               
-               <article key={String("2")}>
-                   <strong>appearance</strong>
-                   <h3>gender: </h3>
-                   {this.state.appearance[0]}
-                   <h3>race: </h3>
-                   {this.state.appearance[1]}
-                   <h3>eye-color: </h3>
-                   {this.state.appearance[4]}
-                   <h3>hair-color: </h3>
-                   {this.state.appearance[6]}
-               
-             </article>
-              
-              }
+                        }
 
-{
-               
-               <article key={String("3")}>
-                   <strong>biography</strong>
-                   <h3>full-namen: </h3>
-                   {this.state.biography[0]}
-                   <h3>alter-egos: </h3>
-                   {this.state.biography[1]}
-                   <h3>place-of-birth: </h3>
-                   {this.state.biography[3]}
-                   <h3>first-appearance: </h3>
-                   {this.state.biography[4]}
-                   <h3>publisher: </h3>
-                   {this.state.biography[5]}
-                   <h3>alignment: </h3>
-                   {this.state.biography[6]}
-               
-             </article>
-
-             
-              
-              }
-
-{
-               
-               <article key={String("2")}>
-                   <strong>work</strong>
-                   <h3>occupation: </h3>
-                   {this.state.work[0]}
-                   <h3>base: </h3>
-                   {this.state.work[1]}
-                   
-                  
-               
-             </article>
-    }
-              
-        </div>
+                        <div className='powerstats'> 
+                        <div>
+                        <Powerstats list={this.state.powerstats}/>
+                        </div>
+                        <div>
+                        <Biografy list={this.state.biography}/>
+                        </div>
+                        <div>
+                        <Connections list={this.state.connections}/>
+                        </div>
+                        <div>
+                        <Appearance list={this.state.appearance}/>
+                        </div>
+                        <div>
+                        <Work list={this.state.work}/>
+                        </div>
+            
+                        </div>
+                    </div>
+                }
           </div>
-      }
-          </div>
+          </Container>
         );
     }
 }
