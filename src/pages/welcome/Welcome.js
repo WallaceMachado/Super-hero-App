@@ -1,5 +1,6 @@
 import React, { Component }from 'react';
 import { NavItem, Form, Col, Button, Container, Row, Card} from 'react-bootstrap';
+import { MdFavoriteBorder } from "react-icons/md"
 import Spinner from 'react-bootstrap/Spinner'
 import {Link} from 'react-router-dom';
 
@@ -188,6 +189,7 @@ class Welcome extends Component{
                       </Link>
                       
                       <Card.Body>
+                        
                         <Button variant="primary" onClick={(e)=> this.addFavoritos(item.id)}
                         style={{marginLeft: '-.7rem', backgroundColor: '#2b2c2d',borderColor:'#2b2c2d', boxShadow:'none'}}>
                           Adicionar aos Favoritos

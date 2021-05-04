@@ -122,7 +122,7 @@ class Header extends Component{
                 </div>
                 :(<div className="header-content">
                
-                <img src={File} alt="logo"/>
+                
                
             
                 </div>)}

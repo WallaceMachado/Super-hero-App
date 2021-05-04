@@ -6,13 +6,7 @@ class Connections extends Component{
     constructor(props){
         super(props);
         this.state = {
-            allHerois: [1],
-            searchText:'',
-            begin:1,
-            idHeroi:'',
-            favoritos:[],
-            listHeroes:[],
-            loading: true,
+           
             list:this.props.list,
             
         }
