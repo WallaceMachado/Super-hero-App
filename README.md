@@ -22,13 +22,13 @@ Detalhes do Herói
 ![image](https://user-images.githubusercontent.com/64056460/117180747-e43a3e80-adaa-11eb-8b56-50f3fa8f9c94.png)
 
 
-#Iniciando...
+# Iniciando...
 * git clone https://github.com/WallaceMachado/Super-hero-App.git
 * yarn install
 * yarn start
 
 
-#Ferramentas utilizas:
+# Ferramentas utilizas:
 
 * Material-UI
 * React Bootstrap
@@ -36,7 +36,7 @@ Detalhes do Herói
 * Styled Components
 * Firebase
 
-#Site
+# Site
 
 https://super-hero-wm.netlify.app/
 
