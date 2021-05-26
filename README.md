@@ -1,6 +1,6 @@
 # Super Hero
 
-Este é um projeto com o objetivo de criar aplicação web utilizando React.js, banco de dados não relacional Firebase e consumindo a  API SuperHero (https://superheroapi.com/). 
+Este é um projeto com o objetivo de criar aplicação web utilizando React.js, banco de dados com Firebase e consumindo a  API SuperHero (https://superheroapi.com/). 
 
 O usuário poderá ver mais informações do super herói caso deseje e também poderá favoritá-los.
 
